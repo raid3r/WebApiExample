@@ -1,0 +1,38 @@
+@WebApiExample_HostAddress = http://localhost:5071
+
+GET {{WebApiExample_HostAddress}}/api/v1/weather-forecast
+Accept: application/json
+
+###
+
+GET {{WebApiExample_HostAddress}}/api/v1/weather-forecast/12345
+Accept: application/json
+
+###
+
+PUT {{WebApiExample_HostAddress}}/api/v1/weather-forecast
+Accept: application/json
+Content-Type: application/json
+
+{
+  "date": "2058-12-28",
+  "temperatureC": 35,
+  "temperatureF": 94,
+  "summary": "Cool"
+}
+
+###
+
+GET {{WebApiExample_HostAddress}}/api/v1/todo-list
+
+###
+
+GET {{WebApiExample_HostAddress}}/api/v1/todo-list?Title=hello&IsComplete=false&CreatedAt=2025-03-16
+
+###
+
+GET {{WebApiExample_HostAddress}}/api/v1/todo-list?Title=hello&IsComplete=true
+
+###
+
+GET {{WebApiExample_HostAddress}}/api/v1/todo-list?Title=hello&IsComplete=false
