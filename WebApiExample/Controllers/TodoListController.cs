@@ -38,9 +38,6 @@ namespace WebApiExample.Controllers
                     IsComplete = x.IsComplete,
                     CreatedAt = x.CreatedAt
                 });
-            //.ToList()
-            //.Where(x => (filter?.CreatedAt) == null || x.CreatedAt == filter?.CreatedAt)
-            //.Where(x => (filter?.IsComplete) == null || x.IsComplete == filter?.IsComplete);
         }
 
         [HttpGet("{id}")]
