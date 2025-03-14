@@ -9,12 +9,41 @@
 <body>
     
     <div class="container">
-        <div class="row">
+        <div class="row" id="not-authorized">
+            <div class="col-md-6">
+                <form id="login">
+                    <div class="mb-3">
+                        <label for="login-email" class="form-label">Login</label>
+                        <input required type="email" name="email" class="form-control" id="login-email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="login-password" class="form-label">Description</label>
+                        <input required type="password" name="password" class="form-control" id="login-password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+
+
+                <form id="register" style="display: none;">
+                    <div class="mb-3">
+                        <label for="register-email" class="form-label">Login</label>
+                        <input required type="email" name="email" class="form-control" id="register-email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="register-password" class="form-label">Description</label>
+                        <input required type="password" name="password" class="form-control" id="register-password">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+        </div>
+        <div class="row" id="authorized">
+            
             <div class="col-md-6">
                 <form id="add-task">
                     <div class="mb-3">
                         <label for="add-task-title" class="form-label">Task title</label>
-                        <input required type="text" name="title"  class="form-control" id="add-task-title">
+                        <input required type="text" name="title" class="form-control" id="add-task-title">
                     </div>
                     <div class="mb-3">
                         <label for="add-task-description" class="form-label">Description</label>
@@ -23,18 +52,21 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
+            <div class="col-md-12">
+                <table id="task-list" class="table table-hoover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Task</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
 
-        <table id="task-list" class="table table-hoover">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Task</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+        
     </div>
     <script src="/js/script.js"></script>
 </body>

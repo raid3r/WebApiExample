@@ -1,6 +1,11 @@
 ﻿var taskList = []
+var isAuthorized = false
 
 const taskTableBody = document.querySelector("table#task-list tbody")
+
+const authorizedContent = document.getElementById("authorized")
+const notAuthorizedContent = document.getElementById("not-authorized")
+
 
 function renderTaskList() {
     const html = taskList.map(task => `
@@ -30,7 +35,7 @@ function renderTaskList() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    //'Authorization': 'Bearer ' + localStorage.getItem('token')'
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
                 },
                 body: JSON.stringify(task)
             }).then(r => r.json()).then(() => {
@@ -44,7 +49,7 @@ function renderTaskList() {
             const id = Number(e.target.closest("[data-id]").getAttribute("data-id"))
             fetch(`api/v1/todo-list/${id}`, {
                 headers: {
-                    //'Authorization': 'Bearer ' + localStorage.getItem('token')'
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
                 },
                 method: 'DELETE',
             }).then(r => r.json()).then(() => {
@@ -54,6 +59,36 @@ function renderTaskList() {
         })
     })
 }
+
+document.querySelector("form#login").addEventListener("submit", function (e) {
+
+    e.preventDefault()
+    const formData = new FormData(e.target)
+
+    const loginForm = {
+        email: formData.get("email"),
+        password: formData.get("password"),
+    }
+
+    fetch("api/v1/auth/login", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginForm)
+    }).then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                localStorage.setItem('token', data.token)
+                handleAuthorization()
+                loadTasks()
+                renderTaskList()
+            }
+        
+    }).catch(err => {
+        console.error(err)
+    })
+})
 
 document.querySelector("form#add-task").addEventListener("submit", function (e) {
 
@@ -79,7 +114,8 @@ document.querySelector("form#add-task").addEventListener("submit", function (e) 
     fetch("api/v1/todo-list", {
         method: 'PUT',
         headers: {
-            //'Authorization': 'Bearer ' + localStorage.getItem('token')'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
         body: JSON.stringify(task)
     }).then(r => r.json()).then(data => {
@@ -88,15 +124,32 @@ document.querySelector("form#add-task").addEventListener("submit", function (e) 
     })
 })
 
-function init() {
+function handleAuthorization() {
+    isAuthorized = localStorage.getItem("token") !== null
+    console.log(localStorage.getItem("token"))
+    console.log('Authorized', isAuthorized)
+    notAuthorizedContent.style.display = isAuthorized ? "none" : "block"
+    authorizedContent.style.display = isAuthorized ? "block" : "none"
+}
+
+function loadTasks() {
     fetch("api/v1/todo-list", {
         headers: {
-            //'Authorization': 'Bearer ' + localStorage.getItem('token')'
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
         },
     }).then(r => r.json()).then(data => {
         taskList = data
         renderTaskList()
     })
+}
+
+function init() {
+
+    handleAuthorization()
+    if (isAuthorized) {
+        loadTasks()
+    }
+
 }
 
 init()
