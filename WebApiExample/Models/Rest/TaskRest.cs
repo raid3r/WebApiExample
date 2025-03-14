@@ -1,15 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApiExample.Models;
+namespace WebApiExample.Models.Rest;
 
-public class ToDoListItem
+public class ToDoListItemRest
 {
     public int Id { get; set; }
-    [MaxLength(100)]
     public string Title { get; set; }
-    [MaxLength(500)]
     public string? Description { get; set; }
     public bool IsComplete { get; set; }
     public DateOnly CreatedAt { get; set; }
-    public virtual User? User { get; set; }
 }

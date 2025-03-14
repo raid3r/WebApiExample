@@ -1,4 +1,5 @@
-@WebApiExample_HostAddress = http://localhost:5071
+@WebApiExample_HostAddress = https://localhost:7004
+@WebApiExample_Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW5AdGVzdC5jb20iLCJqdGkiOiJlM2VmMTZiZS01YzZmLTRkZTUtYWJmYi1mOGQzMTc2OTkzYTgiLCJzdWIiOiIxIiwibmJmIjoxNzQxOTcyODUxLCJleHAiOjE3NDE5NzY0NTEsImlhdCI6MTc0MTk3Mjg1MX0.OdEXwFHpY7QuTYmyFEe2AgO3wbUM112dfjYWDXC2GhI
 
 POST {{WebApiExample_HostAddress}}/api/v1/auth/login
 Accept: application/json

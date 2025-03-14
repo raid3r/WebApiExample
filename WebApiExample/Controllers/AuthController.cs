@@ -91,22 +91,26 @@ public class AuthController(UserManager<User> userManager, IConfiguration config
 
     private string GenerateToken(User user)
     {
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(configuration["Jwt:Key"]);
-        var tokenDescriptor = new SecurityTokenDescriptor
-        {
-            Subject = new ClaimsIdentity(new []
+        var secret = Encoding.ASCII.GetBytes(configuration["Jwt:Key"]);
+        var key = new SymmetricSecurityKey(secret);
+        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+
+        var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Name, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            }),
-            //Expires = DateTime.UtcNow.AddHours(12),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
+            };
 
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
+        var token = new JwtSecurityToken(
+            issuer: configuration["Jwt:Issuer"],
+            audience: configuration["Jwt:Audience"],
+            claims: claims,
+            expires: DateTime.Now.AddDays(10),
+            signingCredentials: creds
+            );
+
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
 }

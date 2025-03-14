@@ -1,0 +1,44 @@
+@WebApiExample_HostAddress = https://localhost:7004
+@WebApiExample_Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiYWRtaW5AdGVzdC5jb20iLCJqdGkiOiIyOGI5ZDg0Mi1mMWVlLTQ3NTYtYTA5MC1kYzIxNTI3NjNkNzQiLCJzdWIiOiIxIiwiZXhwIjoxNzQyODM5MDU3LCJpc3MiOiJZb3VySXNzdWVyIiwiYXVkIjoiWW91ckF1ZGllbmNlIn0.2yyj1PFZ3ylFre_rDVPZiP7qQOo4V7NcjvDGtMbyD4A
+
+
+###
+
+GET {{WebApiExample_HostAddress}}/api/v1/todo-list
+Authorization: Bearer {{WebApiExample_Token}}
+Accept: application/json
+Content-Type: application/json
+
+
+###
+
+PUT {{WebApiExample_HostAddress}}/api/v1/todo-list
+Authorization: Bearer {{WebApiExample_Token}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "Task 1",
+  "description": "task 1 description",
+  "isComplete": false,
+  "createdAt": "2025-03-14"
+}
+
+###
+
+POST {{WebApiExample_HostAddress}}/api/v1/todo-list/7
+Authorization: Bearer {{WebApiExample_Token}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "Task updated",
+  "description": "task 1 description updated",
+  "isComplete": true,
+  "createdAt": "2025-03-12"
+}
+
+###
+
+DELETE {{WebApiExample_HostAddress}}/api/v1/todo-list/8
+Authorization: Bearer {{WebApiExample_Token}}
